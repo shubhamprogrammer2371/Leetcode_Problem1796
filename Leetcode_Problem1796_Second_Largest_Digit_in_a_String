@@ -1,0 +1,38 @@
+int fncmp(const void* a , const void* b)
+{
+    return (*(int*)b - *(int*)a);
+}
+int secondHighest(char * s){
+    int firstmax = -1 , secondmax = -1 , size = 0;
+    int* arr = malloc(sizeof(int)*strlen(s));
+    for( int i = 0 ; i < strlen(s) ; i++)
+        if((s[i] > 47 && s[i] < 58))
+            arr[size++] = s[i] - '0';
+    qsort(arr,size,sizeof(int),fncmp);
+    for( int i = 0 ; i < (size - 1) ; i++)
+        if(arr[i] != arr[i+1])
+            return arr[i+1];
+    return -1;
+}
+
+
+-----------------------------------------------------------------------------------------------
+
+
+int secondHighest(char * s){
+    int first_max = -1 , second_max = -1;
+    for(int i = 0 ; i < strlen(s) ; i++)
+    {
+        if(s[i] > 47 && s[i] < 58)
+        {
+            if((s[i] - '0') > first_max)
+            {
+                second_max = first_max;
+                first_max = s[i] - '0';
+            }
+            else if(((s[i] - '0') != first_max) && ((s[i] - '0') > second_max))  // Checks if it is between first_max and second_max
+                second_max = s[i] - '0';
+        }
+    }
+    return second_max;
+}
